@@ -31,9 +31,10 @@ public class PersistFactoryMongo extends PersistFactory
 		if (client == null)
 		{
 			MongoClientOptions.Builder builder = new MongoClientOptions.Builder();
+			
 			builder.socketKeepAlive(true);
-			builder.autoConnectRetry(true);
-			builder.maxAutoConnectRetryTime(3);
+//			builder.autoConnectRetry(true);
+//			builder.maxAutoConnectRetryTime(3);
 			builder.writeConcern(WriteConcern.UNACKNOWLEDGED);
 			client = new MongoClient(new ServerAddress(dataSource.getHostname(), dataSource.getPort()), builder.build());
 			clients.put(dataSource, client);

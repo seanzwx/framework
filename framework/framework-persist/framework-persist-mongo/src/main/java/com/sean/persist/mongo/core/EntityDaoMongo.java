@@ -243,6 +243,7 @@ public final class EntityDaoMongo<E extends Entity> extends EntityDao<E>
 	 * @param collectionName
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	private DBCollection getCollection(MongoClient client, DataSourceEntity ds, String collectionName)
 	{
 		DB db = client.getDB(ds.getDbName());

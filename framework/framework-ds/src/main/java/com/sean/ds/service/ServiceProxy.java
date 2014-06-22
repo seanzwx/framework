@@ -66,10 +66,12 @@ public final class ServiceProxy<E> implements InvocationHandler
 						try
 						{
 							rs = pool.openClient();
+							long curr = System.currentTimeMillis();
 							logger.debug("请求" + serviceDefine.serviceName + "服务实例" + instance + ", 请求方法:" + method.getName() + "， 请求参数:"
 									+ Arrays.toString(args));
 							Object result = method.invoke(rs.proxy, args);
-							logger.debug("请求结果:" + result);
+							curr = System.currentTimeMillis() - curr;
+							logger.debug("请求时间:" + curr + "毫秒, 请求结果:" + result);
 							return result;
 						}
 						catch (Exception e)
@@ -118,6 +120,7 @@ public final class ServiceProxy<E> implements InvocationHandler
 		});
 		exec.execute(task);
 		Object rs = task.get();
+
 		// 业务异常或者没有服务实例
 		if (rs != null && Throwable.class.isAssignableFrom(rs.getClass()))
 		{
