@@ -1,9 +1,11 @@
 package com.sean.service.core;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +15,8 @@ import org.apache.log4j.Logger;
 import com.sean.common.ioc.BeanFactory;
 import com.sean.common.ioc.ResourceConfig;
 import com.sean.log.core.LogFactory;
+import com.sean.service.action.InquireApiAction;
+import com.sean.service.action.InquireApiListAction;
 import com.sean.service.action.LoadCssAction;
 import com.sean.service.action.LoadJsAction;
 import com.sean.service.action._P;
@@ -121,6 +125,8 @@ public final class ActionContainer
 		// 加入框架内置接口
 		actCls.add(0, LoadCssAction.class);
 		actCls.add(0, LoadJsAction.class);
+		actCls.add(0, InquireApiAction.class);
+		actCls.add(0, InquireApiListAction.class);
 
 		for (int i = 0; i < actCls.size(); i++)
 		{
@@ -222,15 +228,13 @@ public final class ActionContainer
 	 */
 	public List<Action> getAllActions()
 	{
-		// List<Action> acts = new ArrayList<Action>(container.size());
-		// String key;
-		// for (Iterator<String> it = container.keySet().iterator();
-		// it.hasNext();)
-		// {
-		// key = it.next();
-		// acts.add(container.get(key));
-		// }
-		// return acts;
-		return null;
+		List<Action> acts = new ArrayList<>(container.size());
+		String key;
+		for (Iterator<String> it = container.keySet().iterator(); it.hasNext();)
+		{
+			key = it.next();
+			acts.addAll(container.get(key));
+		}
+		return acts;
 	}
 }

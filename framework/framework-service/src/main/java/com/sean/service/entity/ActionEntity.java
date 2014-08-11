@@ -1,5 +1,6 @@
 package com.sean.service.entity;
 
+import com.sean.service.core.Module;
 import com.sean.service.core.Version;
 import com.sean.service.enums.ReturnType;
 import com.sean.service.worker.Worker;
@@ -12,6 +13,7 @@ import com.sean.service.worker.Worker;
 public class ActionEntity
 {
 	private boolean transation;
+	private Class<? extends Module> module;
 	private ParameterEntity[] mustParams;
 	private ParameterEntity[] optionalParams;
 	private ReturnParameterEntity[] returnParams;
@@ -23,11 +25,12 @@ public class ActionEntity
 	private Class<?> cls;
 	private Worker worker;
 
-	public ActionEntity(boolean transation, ReturnParameterEntity[] returnParams, ParameterEntity[] mustParams,
-			ParameterEntity[] optionalParams, int permission, boolean authenticate, ReturnType returnType, Class<?> cls,
-			String description, Version version, Worker worker)
+	public ActionEntity(boolean transation, Class<? extends Module> module, ReturnParameterEntity[] returnParams, ParameterEntity[] mustParams,
+			ParameterEntity[] optionalParams, int permission, boolean authenticate, ReturnType returnType, Class<?> cls, String description,
+			Version version, Worker worker)
 	{
 		this.transation = transation;
+		this.module = module;
 		this.returnParams = returnParams;
 		this.mustParams = mustParams;
 		this.optionalParams = optionalParams;
@@ -93,6 +96,11 @@ public class ActionEntity
 	public Worker getWorker()
 	{
 		return worker;
+	}
+
+	public Class<? extends Module> getModule()
+	{
+		return module;
 	}
 
 }

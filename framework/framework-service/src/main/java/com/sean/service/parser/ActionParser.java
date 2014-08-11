@@ -181,8 +181,8 @@ public class ActionParser
 			versions.put(ac.version().getName(), version);
 		}
 
-		ActionEntity ae = new ActionEntity(ac.transaction(), rpe, mustParams, optionalParams, ac.permission(), ac.authenticate(), ac.returnType(),
-				cls, dc.value(), version, chain);
+		ActionEntity ae = new ActionEntity(ac.transaction(), ac.module(), rpe, mustParams, optionalParams, ac.permission(), ac.authenticate(),
+				ac.returnType(), cls, dc.value(), version, chain);
 
 		// 检查action
 		checkAction(ae);

@@ -15,4 +15,8 @@ public class _P
 	public static final String css = "css";
 	@ParameterConfig(dataType = DataType.String, description = "需要加载的javascript文件路径，多个文件用逗号隔开，路径需要从项目根路径开始") 
 	public static final String js = "js";
+	@ParameterConfig(dataType = DataType.String, description = "接口名称") 
+	public static final String action = "action";
+	@ParameterConfig(dataType = DataType.String, description = "版本") 
+	public static final String version = "version";
 }
