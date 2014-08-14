@@ -10,6 +10,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import com.sean.service.action.InquireApiAction;
+import com.sean.service.action.InquireApiListAction;
 import com.sean.service.enums.ReturnType;
 
 /**
@@ -27,6 +29,7 @@ public final class ActionPseudoDispatcher implements Filter
 		Action act = null;
 		Session session = null;
 		String json = null;
+		boolean execute = false;
 		try
 		{
 			// 转换编码
@@ -58,14 +61,22 @@ public final class ActionPseudoDispatcher implements Filter
 
 			// 执行伪实现
 			ReturnType rt = act.getActionEntity().getReturnType();
-			if (rt == ReturnType.Json)
+			Class<?> clazz = act.getActionEntity().getCls();
+			if (clazz == InquireApiAction.class || clazz == InquireApiListAction.class)
 			{
-				json = "{\"state\":\"Success\",\"data\":" + act.pseudo(session) + "}";
+				execute = true;
+				act.execute(session);
 			}
 			else if (rt == ReturnType.Js || rt == ReturnType.Css)
 			{
+				execute = true;
 				act.execute(session);
 			}
+			else
+			{
+				json = "{\"state\":\"Success\",\"data\":" + act.pseudo(session) + "}";
+			}
+
 		}
 		catch (Exception e)
 		{
@@ -77,7 +88,7 @@ public final class ActionPseudoDispatcher implements Filter
 		{
 			try
 			{
-				if (act.getActionEntity().getReturnType() == ReturnType.Json)
+				if (!execute)
 				{
 					this.httpWriter.writeJson(request, response, json);
 				}

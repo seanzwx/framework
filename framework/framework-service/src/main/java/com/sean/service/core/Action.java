@@ -111,7 +111,7 @@ public abstract class Action
 				{
 					json.append("\"").append(param.getName()).append("\":\"").append(random.nextInt(10)).append("\"");
 				}
-				else if (param.getFormat() == Format.Map || param.getFormat() == Format.Entity)
+				else if (param.getFormat() == Format.Map || param.getFormat() == Format.Entity || param.getFormat() == Format.AvroEntity)
 				{
 					json.append("\"").append(param.getName()).append("\":{");
 					String[] fields = param.getFields();
@@ -121,7 +121,7 @@ public abstract class Action
 					}
 					json.setCharAt(json.length() - 1, '}');
 				}
-				else if (param.getFormat() == Format.EntityList)
+				else if (param.getFormat() == Format.EntityList || param.getFormat() == Format.AvroEntityList)
 				{
 					json.append("\"").append(param.getName()).append("\":[");
 					String[] fields = param.getFields();
