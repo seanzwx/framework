@@ -19,20 +19,21 @@
 .t_head
 {
 	background-color:#cccccc;
-	height:40px;
-	text-align: center;
+	height:30px;
+	text-align: left;
 }
 
 .td1
 {
-	height:40px;
-	text-align: center;
+	height:26px;
+	text-align: left;
 	background-color:#ececec;
+	border-bottom: solid 1px #dcdcdc;
 }
     </style>
   </head>
   
-  <body id="content" style="padding: 0px; margin: 0px;padding: 10px;background: #300A24; color: #ffffff;font-family: monospace;font-size: 15px;" onload="loadData()">
+  <body id="content" style="padding: 0px; margin: 0px;padding: 6px;background: #300A24; color: #ffffff;font-family: monospace;font-size: 12px;" onload="loadData()">
   	
   	<script id="tpl_info" type="text/template">
   	<table width="100%" border="0">
@@ -40,26 +41,24 @@
   			<td>接口名称：${data.action}</td>
   			<td colspan="3">接口描述：${data.descr}</td>
   		</tr>
-		<tr><td>&nbsp;</td></tr>
   		<tr>
   			<td>是否需要事务：${data.transation}</td>
   			<td>是否需要认证：${data.auth}</td>
 			<td>返回类型：${data.returnType}</td>
   			<td>权限ID：${data.permission}</td>
   		</tr>
-		<tr><td>&nbsp;</td></tr>
 		<tr>
   			<td colspan="2">URL：${data.url}</td>
 			<td colspan="3">接口实现类：${data.clazz}</td>
   		</tr>
   	</table>
   	
-  	<br><br>
-  	<div><b>必填参数</b></div>
+  	<br>
+  	<div>必填参数</div>
 	<div>
   		<table width="100%" class="t" cellpadding="0" cellspacing="0">
   			<tr>
-  				<td width="15%" class="t_head">名称</td>
+  				<td width="15%" class="t_head" style="padding-left: 6px">名称</td>
   				<td width="15%" class="t_head">数据类型</td>
   				<td width="10%" class="t_head">参数类型</td>
 				<td width="10%" class="t_head">最大长度</td>
@@ -69,7 +68,7 @@
 
 			{@each data.mustParams as it,index}
   			<tr>
-  				<td class="td1">${it.name}</td>
+  				<td class="td1" style="padding-left: 6px">${it.name}</td>
   				<td class="td1">${it.dataType}</td>
   				<td class="td1">${it.type}</td>
 				<td class="td1">${it.length}</td>
@@ -81,12 +80,12 @@
   		</table>
 	</div>
   	
-  	<br><br>
-  	<div><b>可选参数</b></div>
+  	<br>
+  	<div>可选参数</div>
 	<div>
   		<table width="100%" class="t" cellpadding="0" cellspacing="0">
   			<tr>
-  				<td width="15%" class="t_head">名称</td>
+  				<td width="15%" class="t_head" style="padding-left: 6px">名称</td>
   				<td width="15%" class="t_head">数据类型</td>
   				<td width="10%" class="t_head">参数类型</td>
 				<td width="10%" class="t_head">最大长度</td>
@@ -96,7 +95,7 @@
 
 			{@each data.optionalParams as it}
   			<tr>
-  				<td class="td1">${it.name}</td>
+  				<td class="td1" style="padding-left: 6px">${it.name}</td>
   				<td class="td1">${it.dataType}</td>
   				<td class="td1">${it.type}</td>
 				<td class="td1">${it.length}</td>
@@ -108,22 +107,21 @@
   		</table>
 	</div>
 
-	<br><br>
-  	<div><b>返回参数</b></div>
+	<br>
+  	<div>返回参数: {"state":"Success", "code":1000, "msg":"Success", "data":{...}}</div>
 	<div>
   		<table width="100%" class="t" cellpadding="0" cellspacing="0">
   			<tr>
-  				<td width="15%" class="t_head">名称</td>
+  				<td width="12%" class="t_head" style="padding-left: 6px">名称</td>
   				<td width="10%" class="t_head">数据类型</td>
-  				<td width="20%" class="t_head">实体</td>
-				<td width="30%" class="t_head">参数域</td>
+  				<td width="12%" class="t_head">实体</td>
+				<td width="40%" class="t_head">参数域</td>
   				<td width="*" class="t_head">参数描述</td>
   			</tr>
 
 			{@each data.returnParams as it,index}
-  			{@if index%2 === 0}
   			<tr>
-  				<td class="td1">${it.name}</td>
+  				<td class="td1" style="padding-left: 6px">${it.name}</td>
 				<td class="td1">${it.format}</td>
   				<td class="td1">${it.entity}</td>
 				<td class="td1">
@@ -131,7 +129,7 @@
 					<table width="100%">
 					{@each it.fields as f}
 						<tr>
-							<td>${f.name} : ${f.description}</td>
+							<td>${f.name} - ${f.descr}</td>
 						</tr>
 					{@/each}
 					</table>
@@ -139,25 +137,6 @@
 				</td>
   				<td class="td1">${it.description}</td>
   			</tr>
-			{@else}
-			<tr>
-  				<td class="td1">${it.name}</td>
-				<td class="td1">${it.format}</td>
-  				<td class="td1">${it.entity}</td>
-				<td class="td1">
-
-					<table width="100%">
-					{@each it.fields as f}
-						<tr>
-							<td>${f.name} : ${f.description}</td>
-						</tr>
-					{@/each}
-					</table>
-
-				</td>
-  				<td class="td1">${it.description}</td>
-  			</tr>
-			{@/if}
 			{@/each}
 
   		</table>
@@ -168,11 +147,15 @@
 
 
 <script type="text/javascript">
-
 function loadData()
 {
 	var actName = getQueryString('actName');
 	var version = getQueryString('version');
+	if(actName == '' || version == '')
+	{
+		return;
+	}
+	
 	ajax("action/v1/InquireApiAction", "action=" + actName + "&version=" + version, function(jsonstr, jsonobj)
 	{	
 		var tpl = document.getElementById('tpl_info').innerHTML;
@@ -181,7 +164,7 @@ function loadData()
 			data : jsonobj.data.api,
 		};
 		
-		data.data.url = 'http://' + host + ":" + port + '/' + appname + '/action/' + data.data.version + "/" + data.data.action;
+		data.data.url = 'http://' + host + ":" + port + '/' + appname + '/api/' + data.data.version + "/" + data.data.action;
 		var html = juicer(tpl, data);
 		$('#content').append(html);
 	});

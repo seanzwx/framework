@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sean.persist.annotation.ColumnConfig;
 import com.sean.persist.core.PersistContext;
@@ -39,9 +40,7 @@ public class DocManager
 		obj.put("clazz", action.getCls().getName());
 		obj.put("mustParams", action.getMustParams());
 		obj.put("optionalParams", action.getOptionalParams());
-		obj.put("returnParams", action.getReturnParams());
-		// TODO 此处有bug
-//		getComment(action, obj);
+		getComment(action, obj);
 		return obj.toJSONString();
 	}
 
@@ -81,14 +80,21 @@ public class DocManager
 
 	protected static void getComment(ActionEntity action, JSONObject json)
 	{
+		JSONArray list = new JSONArray();
 		ReturnParameterEntity[] rets = action.getReturnParams();
-		int index = -1;
 		for (ReturnParameterEntity param : rets)
 		{
-			index++;
+			JSONObject obj = new JSONObject();
+			obj.put("name", param.getName());
+			obj.put("description", param.getDescription());
+			obj.put("format", param.getFormat());
+
 			// 如果是实体
 			if (param.getFormat() == Format.Entity || param.getFormat() == Format.EntityList)
 			{
+				obj.put("entity", param.getEntity().getSimpleName());
+
+				JSONArray fields = new JSONArray();
 				int length = param.getFields().length;
 				String field;
 				for (int i = 0; i < length; i++)
@@ -130,11 +136,32 @@ public class DocManager
 							}
 						}
 					}
-					
-					JSONObject item = (JSONObject) json.getJSONArray("returnParams").get(index);
-					item.getJSONArray("fields").set(i, field + ":" + descr);
+					JSONObject f = new JSONObject();
+					f.put("name", field);
+					f.put("descr", descr);
+					fields.add(f);
 				}
+				obj.put("fields", fields);
 			}
+			// avro 远程实体
+			else if (param.getFormat() == Format.AvroEntity || param.getFormat() == Format.AvroEntityList)
+			{
+				JSONArray fields = new JSONArray();
+				int length = param.getFields().length;
+				String field;
+				for (int i = 0; i < length; i++)
+				{
+					field = param.getFields()[i];
+					JSONObject f = new JSONObject();
+					f.put("name", field);
+					f.put("descr", "");
+					fields.add(f);
+				}
+				obj.put("fields", fields);
+			}
+
+			list.add(obj);
 		}
+		json.put("returnParams", list);
 	}
 }
