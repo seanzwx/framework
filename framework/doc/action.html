@@ -156,7 +156,7 @@ function loadData()
 		return;
 	}
 	
-	ajax("action/v1/InquireApiAction", "action=" + actName + "&version=" + version, function(jsonstr, jsonobj)
+	ajax("api/v1/InquireApiAction", "action=" + actName + "&version=" + version, function(jsonstr, jsonobj)
 	{	
 		var tpl = document.getElementById('tpl_info').innerHTML;
 		var data = 

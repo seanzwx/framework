@@ -1,6 +1,6 @@
 var host = 'localhost';
 var port = 8080;
-var appname = 'microtalk-web';
+var appname = 'task-report1';
 
 var v = jQuery.browser.version;
 var isIE;

@@ -42,7 +42,7 @@ var actions;
 
 function getList()
 {
-	ajax("action/v1/InquireApiListAction","", function(jsonstr, jsonobj)
+	ajax("api/v1/InquireApiListAction","", function(jsonstr, jsonobj)
 	{
 		actions = jsonobj.data.apiList;
 		var tpl = document.getElementById('tpl_list').innerHTML;
