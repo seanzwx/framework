@@ -34,6 +34,12 @@ public @interface ParameterConfig
 	String description();
 	
 	/**
+	 * error msg
+	 * @return
+	 */
+	String errormsg() default "";
+	
+	/**
 	 * regex pattern
 	 */
 	String regex() default "";

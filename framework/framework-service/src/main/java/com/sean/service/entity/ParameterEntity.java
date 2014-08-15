@@ -16,8 +16,9 @@ public class ParameterEntity
 	private String regex;
 	private int length;
 	private String description;
+	private String errormsg;
 
-	public ParameterEntity(String name, DataType dataType, ParameterType type, String regex, int length, String description)
+	public ParameterEntity(String name, DataType dataType, ParameterType type, String regex, int length, String description, String errormsg)
 	{
 		this.name = name;
 		this.dataType = dataType;
@@ -25,6 +26,7 @@ public class ParameterEntity
 		this.regex = regex;
 		this.length = length;
 		this.description = description;
+		this.errormsg = errormsg;
 	}
 
 	public String getName()
@@ -55,6 +57,11 @@ public class ParameterEntity
 	public int getLength()
 	{
 		return length;
+	}
+
+	public String getErrormsg()
+	{
+		return errormsg;
 	}
 
 }

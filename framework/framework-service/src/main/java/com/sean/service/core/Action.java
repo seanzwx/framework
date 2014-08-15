@@ -55,20 +55,40 @@ public abstract class Action
 				{
 					if (tmp[j] == null || tmp[j].isEmpty())
 					{
-						session.invalid("parameter " + param.getName() + " error for the value: "
-								+ Arrays.toString(tmp));
+						if (param.getErrormsg().isEmpty())
+						{
+							session.invalid("parameter " + param.getName() + " error for the value: " + Arrays.toString(tmp));
+						}
+						else
+						{
+							session.invalid(param.getErrormsg() + "- for the value: " + Arrays.toString(tmp));
+						}
 						return false;
 					}
 				}
 				if (!checker.check(tmp, param))
 				{
-					session.invalid("parameter " + param.getName() + " error for the value: " + Arrays.toString(tmp));
+					if (param.getErrormsg().isEmpty())
+					{
+						session.invalid("parameter " + param.getName() + " error for the value: " + Arrays.toString(tmp));
+					}
+					else
+					{
+						session.invalid(param.getErrormsg() + "- for the value: " + Arrays.toString(tmp));
+					}
 					return false;
 				}
 			}
 			else
 			{
-				session.invalid("parameter " + param.getName() + " error for the value: null");
+				if (param.getErrormsg().isEmpty())
+				{
+					session.invalid("parameter " + param.getName() + " error for the value: " + Arrays.toString(tmp));
+				}
+				else
+				{
+					session.invalid(param.getErrormsg() + "- for the value null");
+				}
 				return false;
 			}
 		}
@@ -130,8 +150,7 @@ public abstract class Action
 						json.append('{');
 						for (int k = 0; k < fields.length; k++)
 						{
-							json.append("\"").append(fields[k]).append("\":\"").append(random.nextInt(10))
-									.append("\",");
+							json.append("\"").append(fields[k]).append("\":\"").append(random.nextInt(10)).append("\",");
 						}
 						json.setCharAt(json.length() - 1, '}');
 						json.append(',');
