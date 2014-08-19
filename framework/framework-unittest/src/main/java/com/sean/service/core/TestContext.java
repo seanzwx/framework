@@ -3,7 +3,6 @@ package com.sean.service.core;
 import javax.servlet.ServletContextEvent;
 
 import com.sean.config.core.Config;
-import com.sean.persist.core.PersistLaucher;
 
 /**
  * 单元测试上下文
@@ -17,8 +16,6 @@ public final class TestContext extends AbstractLauncher
 	{
 		try
 		{
-			// 标记为单元测试
-			PersistLaucher.isUnitTest = true;
 			Config.readConfiguration();
 			this.build(null);
 		}

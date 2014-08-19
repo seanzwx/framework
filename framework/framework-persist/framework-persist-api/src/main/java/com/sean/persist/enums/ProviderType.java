@@ -9,10 +9,10 @@ public enum ProviderType
 	/**
 	 * JNDI datasource 
 	 */
-	JndiDataSource,
+	Jndi,
 	
 	/**
 	 * custom datasource
 	 */
-	Custom
+	Dbcp
 }

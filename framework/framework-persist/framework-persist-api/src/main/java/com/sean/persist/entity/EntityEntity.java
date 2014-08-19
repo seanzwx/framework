@@ -3,7 +3,6 @@ package com.sean.persist.entity;
 import java.util.List;
 
 import com.sean.persist.core.CachePolicy;
-import com.sean.persist.core.DataSourceProvider;
 import com.sean.persist.core.Partition;
 
 /**
@@ -14,16 +13,15 @@ public class EntityEntity
 {
 	private ColumnEntity primaryKey;
 	private String tableName;
-	private Class<? extends DataSourceProvider> dataSource;
+	private String dataSource;
 	private boolean cache;
 	private List<ColumnEntity> columns;
 	private Class<? extends CachePolicy> cachePolicy;
 	private Class<? extends Partition> partition;
 	private Class<?> cls;
 
-	public EntityEntity(String tableName, Class<? extends DataSourceProvider> dataSource, boolean cache,
-			List<ColumnEntity> columns, Class<? extends CachePolicy> cachePolicy, Class<? extends Partition> partition,
-			Class<?> cls)
+	public EntityEntity(String tableName, String dataSource, boolean cache, List<ColumnEntity> columns, Class<? extends CachePolicy> cachePolicy,
+			Class<? extends Partition> partition, Class<?> cls)
 	{
 		this.tableName = tableName;
 		this.dataSource = dataSource;
@@ -48,7 +46,7 @@ public class EntityEntity
 		return tableName;
 	}
 
-	public Class<? extends DataSourceProvider> getDataSource()
+	public String getDataSource()
 	{
 		return dataSource;
 	}

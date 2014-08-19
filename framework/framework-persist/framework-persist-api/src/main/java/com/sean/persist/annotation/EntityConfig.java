@@ -7,7 +7,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import com.sean.persist.core.CachePolicy;
-import com.sean.persist.core.DataSourceProvider;
 import com.sean.persist.core.DefaultCachePolicy;
 import com.sean.persist.core.Partition;
 
@@ -28,7 +27,7 @@ public @interface EntityConfig
 	/**
 	 * 数据源
 	 */
-	Class<? extends DataSourceProvider> dataSource();
+	String dataSource();
 
 	/**
 	 * 是否开启缓存，默认false

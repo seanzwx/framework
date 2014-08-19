@@ -65,7 +65,7 @@ public class PersistFactoryRdb extends PersistFactory
 	 */
 	private DataSource getDataSource(DataSourceEntity ds) throws Exception
 	{
-		if (ds.getProviderType() == ProviderType.Custom)
+		if (ds.getProviderType() == ProviderType.Dbcp)
 		{
 			BasicDataSource bds = new BasicDataSource();
 			bds.setDriverClassName("com.mysql.jdbc.Driver");

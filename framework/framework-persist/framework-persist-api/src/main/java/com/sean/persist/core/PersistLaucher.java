@@ -17,7 +17,6 @@ public final class PersistLaucher
 {
 	private static final PersistLaucher instance = new PersistLaucher();
 	private boolean isLauched = false;
-	public static boolean isUnitTest = false;// 是否为单元测试标记
 	private static final Logger logger = LogFactory.getLogger(L.Persist);
 
 	private PersistLaucher()
