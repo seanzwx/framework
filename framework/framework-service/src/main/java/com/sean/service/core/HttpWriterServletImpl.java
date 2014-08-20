@@ -8,7 +8,6 @@ import java.io.PrintWriter;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
@@ -51,11 +50,11 @@ public final class HttpWriterServletImpl implements HttpWriter
 	public void writeJson(ServletRequest request, ServletResponse response, String json) throws Exception
 	{
 		PrintWriter pw = response.getWriter();
-		String userAgent = ((HttpServletRequest) request).getHeader("User-Agent");
-		// IE返回jsonp服务
-		if (userAgent != null && userAgent.toLowerCase().indexOf("msie") != -1)
+		// 如果是jsonp请求
+		String callback = request.getParameter("callback");
+		if (callback != null)
 		{
-			json = request.getParameter("callback") + "('" + json + "')";
+			json = callback + "('" + json + "')";
 		}
 		pw.write(json);
 		pw.flush();
