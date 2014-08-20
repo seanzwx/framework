@@ -55,7 +55,7 @@ public final class ActionPseudoDispatcher implements Filter
 			// 验证参数合法性
 			if (!act.checkParams(session, checker))
 			{
-				json = "{\"state\":\"Invalid\",\"data\":{}}";
+				json = "{\"state\":\"Invalid\",\"data\":{\"msg\":\"" + session.getMsg() + "\"}}";
 				return;
 			}
 
