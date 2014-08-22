@@ -141,7 +141,7 @@ public abstract class Action
 					}
 					json.setCharAt(json.length() - 1, '}');
 				}
-				else if (param.getFormat() == Format.EntityList || param.getFormat() == Format.AvroEntityList)
+				else if (param.getFormat() == Format.EntityList || param.getFormat() == Format.AvroEntityList || param.getFormat() == Format.Table)
 				{
 					json.append("\"").append(param.getName()).append("\":[");
 					String[] fields = param.getFields();

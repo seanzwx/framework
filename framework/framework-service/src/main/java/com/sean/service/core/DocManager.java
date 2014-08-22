@@ -90,7 +90,7 @@ public class DocManager
 			obj.put("format", param.getFormat());
 
 			// 如果是实体
-			if (param.getFormat() == Format.Entity || param.getFormat() == Format.EntityList)
+			if (param.getFormat() == Format.Entity || param.getFormat() == Format.EntityList || param.getFormat() == Format.Table)
 			{
 				obj.put("entity", param.getEntity().getSimpleName());
 
