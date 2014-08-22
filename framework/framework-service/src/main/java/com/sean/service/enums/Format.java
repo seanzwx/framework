@@ -25,6 +25,11 @@ public enum Format
 	 * map
 	 */
 	Map("Map"),
+	
+	/**
+	 * 表格
+	 */
+	Table("Table"),
 
 	/**
 	 * entity

@@ -19,6 +19,7 @@ import com.sean.service.writer.FieldWriterJson;
 import com.sean.service.writer.FieldWriterMap;
 import com.sean.service.writer.FieldWriterNumeric;
 import com.sean.service.writer.FieldWriterString;
+import com.sean.service.writer.FieldWriterTable;
 
 /**
  * 返回参数
@@ -98,6 +99,8 @@ public class ReturnParameterParser
 			break;
 		case Map:
 			fieldWriter = FieldWriterMap.getInstance();
+		case Table:
+			fieldWriter = FieldWriterTable.getInstance();
 			break;
 		case Entity:
 			fieldWriter = FieldWriterEntity.getInstance();

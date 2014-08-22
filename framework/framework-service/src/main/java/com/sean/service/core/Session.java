@@ -135,6 +135,16 @@ public abstract class Session
 	{
 		this.returnData.put(name, value);
 	}
+	
+	/**
+	 * add return attribute
+	 * @param name
+	 * @param value
+	 */
+	public void setReturnTableAttribute(String name, List<Map<String, String>> value)
+	{
+		this.returnData.put(name, value);
+	}
 
 	/**
 	 * add return attribute
