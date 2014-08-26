@@ -28,35 +28,25 @@ public final class DsServer
 		for (Class<?> c : servers)
 		{
 			ServiceConfig rc = c.getAnnotation(ServiceConfig.class);
+			String config = rc.config();
+
 			Class<?> iface = c.getInterfaces()[0];
+			String hostname = Config.getProperty("service." + config + ".hostname");
+			int port = Integer.parseInt(Config.getProperty("service." + config + ".port"));
 			Class<?> proxy = rc.proxy();
-			Class<?> route = rc.route();
-			Class<?> fail = rc.fail();
+			Class<?> route = Class.forName(Config.getProperty("service." + config + ".route"));
+			Class<?> fail = Class.forName(Config.getProperty("service." + config + ".fail"));
+			float weight = 1.0f;
+			if (Config.getProperty("service." + config + ".route.weight") != null)
+			{
+				weight = Float.parseFloat(Config.getProperty("service." + config + ".route.weight"));
+			}
 
 			// 发布服务
-			String addrs = Config.getProperty(iface.getName());
-			// 使用配置文件发布服务, hostname1:port1,hostname2:port2， 多个实例运行与同一个jvm进程中
-			if (addrs != null)
-			{
-				String[] items = addrs.split(",");
-				for (String it : items)
-				{
-					String[] addr = it.split(":");
-
-					Object serviceImpl = c.newInstance();
-					ServiceDefine define = new ServiceDefine(iface, proxy, route, fail);
-					ServiceInstance instance = new ServiceInstance(addr[0].trim(), Integer.parseInt(addr[1]), rc.weight());
-					ServicePublisher.publishService(define, serviceImpl, instance);
-				}
-			}
-			// 直接使用annocation发布服务
-			else
-			{
-				Object serviceImpl = c.newInstance();
-				ServiceDefine define = new ServiceDefine(iface, proxy, route, fail);
-				ServiceInstance instance = new ServiceInstance(rc.hostname(), rc.port(), rc.weight());
-				ServicePublisher.publishService(define, serviceImpl, instance);
-			}
+			Object serviceImpl = c.newInstance();
+			ServiceDefine define = new ServiceDefine(iface, proxy, route, fail);
+			ServiceInstance instance = new ServiceInstance(hostname, port, weight);
+			ServicePublisher.publishService(define, serviceImpl, instance);
 		}
 
 		// 显示gc
