@@ -117,7 +117,7 @@ public final class LocalService
 	 * @throws InterruptedException 
 	 * @throws KeeperException 
 	 */
-	protected static synchronized void removeSerrviceInstance(String serviceName, ServiceInstance instance) throws KeeperException,
+	protected static synchronized void removeServiceInstance(String serviceName, ServiceInstance instance) throws KeeperException,
 			InterruptedException
 	{
 		Service service = services.get(serviceName);

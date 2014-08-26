@@ -5,9 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooKeeper;
-import org.apache.zookeeper.data.Stat;
 
 import com.alibaba.fastjson.JSON;
 import com.sean.config.core.Config;
@@ -101,25 +99,25 @@ public final class ServiceSubscriber
 		throw new RuntimeException("获取客户端:服务" + serviceClass.getSimpleName() + "不存在");
 	}
 
-	/**
-	 * 服务实例下线
-	 * @param instancePath
-	 * @throws InterruptedException 
-	 * @throws KeeperException 
-	 */
-	protected static void offlineServiceInstance(ServiceDefine define, ServiceInstance instance) throws KeeperException, InterruptedException
-	{
-		instance.status = ServiceInstance.Status_Offline;
-		String path = define.getInstancePath(instance);
-		Stat stat = new Stat();
-		byte[] data = zk.getData(path, false, stat);
-		if (data != null && data.length > 0)
-		{
-			zk.setData(path, instance.toJson().getBytes(), stat.getVersion());
-			logger.debug(define.serviceName + "服务实例" + instance + "离线");
-
-			// 删除本地服务实例
-			LocalService.removeSerrviceInstance(define.serviceName, instance);
-		}
-	}
+//	/**
+//	 * 服务实例下线
+//	 * @param instancePath
+//	 * @throws InterruptedException 
+//	 * @throws KeeperException 
+//	 */
+//	protected static void offlineServiceInstance(ServiceDefine define, ServiceInstance instance) throws KeeperException, InterruptedException
+//	{
+//		instance.status = ServiceInstance.Status_Offline;
+//		String path = define.getInstancePath(instance);
+//		Stat stat = new Stat();
+//		byte[] data = zk.getData(path, false, stat);
+//		if (data != null && data.length > 0)
+//		{
+//			zk.setData(path, instance.toJson().getBytes(), stat.getVersion());
+//			logger.debug(define.serviceName + "服务实例" + instance + "离线");
+//
+//			// 删除本地服务实例
+//			LocalService.removeServiceInstance(define.serviceName, instance);
+//		}
+//	}
 }

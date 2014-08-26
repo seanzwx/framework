@@ -2,7 +2,6 @@ package com.sean.ds.service;
 
 import java.net.InetSocketAddress;
 
-import org.apache.avro.ipc.DsNettyServer;
 import org.apache.avro.ipc.NettyServer;
 import org.apache.avro.ipc.Server;
 import org.apache.avro.ipc.specific.SpecificResponder;
@@ -14,7 +13,6 @@ import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooDefs.Ids;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.Stat;
-import org.jboss.netty.channel.Channel;
 
 import com.alibaba.fastjson.JSON;
 import com.sean.config.core.Config;
@@ -86,22 +84,8 @@ public final class ServicePublisher
 			define.reflectClass();
 
 			// 启动服务
-			DsNettyServer server = new DsNettyServer(new SpecificResponder(define.getServiceClass(), serviceImpl), new InetSocketAddress(
+			Server server = new NettyServer(new SpecificResponder(define.getServiceClass(), serviceImpl), new InetSocketAddress(
 					instance.hostname, instance.port));
-			server.setClientListener(new ClientListener()
-			{
-				@Override
-				public void onConnected(Channel client)
-				{
-					logger.debug("新客户端连接:" + client);
-				}
-
-				@Override
-				public void onDisconnected(Channel client)
-				{
-					logger.debug("客户端关闭:" + client);
-				}
-			});
 			server.start();
 			logger.debug(define.serviceName + " remote server started, listen on " + instance.hostname + ":" + instance.port);
 
