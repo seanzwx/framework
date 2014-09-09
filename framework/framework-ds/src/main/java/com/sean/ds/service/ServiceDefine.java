@@ -16,6 +16,7 @@ public class ServiceDefine
 	public String routeClass;
 	public String failClass;
 	public String proxyClass;
+	public int failRetries;
 
 	private Class<?> serviceClazz;
 	private Class<?> proxyClazz;
@@ -26,13 +27,14 @@ public class ServiceDefine
 	{
 	}
 
-	public ServiceDefine(Class<?> serviceClass, Class<?> proxyClass, Class<?> routeClass, Class<?> failClass)
+	public ServiceDefine(Class<?> serviceClass, Class<?> proxyClass, Class<?> routeClass, Class<?> failClass, int failRetries)
 	{
 		this.serviceName = serviceClass.getSimpleName();
 		this.serviceClass = serviceClass.getName();
 		this.proxyClass = proxyClass.getName();
 		this.routeClass = routeClass.getName();
 		this.failClass = failClass.getName();
+		this.failRetries = failRetries;
 	}
 
 	protected Class<?> getServiceClass()
@@ -53,6 +55,11 @@ public class ServiceDefine
 	protected Class<?> getFailClass()
 	{
 		return this.failClazz;
+	}
+
+	public int getFailRetries()
+	{
+		return failRetries;
 	}
 
 	/**
@@ -104,6 +111,7 @@ public class ServiceDefine
 		json.put("proxyClass", proxyClass);
 		json.put("routeClass", routeClass);
 		json.put("failClass", failClass);
+		json.put("failRetries", String.valueOf(failRetries));
 		return JSON.toJSONString(json);
 	}
 }

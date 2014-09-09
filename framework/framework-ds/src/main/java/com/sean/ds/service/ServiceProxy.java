@@ -58,61 +58,73 @@ public final class ServiceProxy<E> implements InvocationHandler
 				ServiceInstance instance = routeStrategy.getInstance(instances);
 				if (instance != null)
 				{
-					while (true)
+					// 初始化线程上下文
+					failStrategy.initThreadContext();
+					try
 					{
-						// 从实例客户端连接池中请求连接
-						ClientPool<E> pool = instance.getClientPool();
-						AvroClient<E> rs = null;
-						try
+						while (true)
 						{
-							rs = pool.openClient();
-							long curr = System.currentTimeMillis();
-							logger.debug("请求" + serviceDefine.serviceName + "服务实例" + instance + ", 请求方法:" + method.getName() + "， 请求参数:"
-									+ Arrays.toString(args));
-							Object result = method.invoke(rs.proxy, args);
-							curr = System.currentTimeMillis() - curr;
-							logger.debug("请求时间:" + curr + "毫秒, 请求结果:" + result);
-							return result;
-						}
-						catch (Exception e)
-						{
-							Throwable excpt = e.getCause();
-							// 业务异常
-							if (SpecificExceptionBase.class.isAssignableFrom(excpt.getClass()))
+							// 从实例客户端连接池中请求连接
+							ClientPool<E> pool = instance.getClientPool();
+							AvroClient<E> rs = null;
+							long curr = 0L;
+							try
 							{
-								logger.debug("业务异常: " + excpt);
-								return excpt;
+								rs = pool.openClient();
+								curr = System.currentTimeMillis();
+								logger.debug("请求" + serviceDefine.serviceName + "服务实例" + instance + ", 请求方法:" + method.getName() + "， 请求参数:"
+										+ Arrays.toString(args));
+								Object result = method.invoke(rs.proxy, args);
+								curr = System.currentTimeMillis() - curr;
+								logger.debug("调用时间:" + curr + "毫秒, 请求结果:" + result);
+								return result;
 							}
-							// 其他异常视为通信异常
-							else
+							catch (Exception e)
 							{
-								logger.error("ds服务通信异常: " + e.getMessage(), e);
-
-								// TODO 设置服务实例离线
-								// ServiceSubscriber.offlineServiceInstance(serviceDefine,
-								// instance);
-
-								// 失败转移
-								instance = failStrategy.failover(instances);
-								if (instance != null)
+								Throwable excpt = e.getCause();
+								// 业务异常
+								if (SpecificExceptionBase.class.isAssignableFrom(excpt.getClass()))
 								{
-									continue;
+									curr = System.currentTimeMillis() - curr;
+									logger.debug("调用时间:" + curr + ", 业务异常: " + excpt);
+									return excpt;
 								}
-								// 没有在线服务实例
+								// 其他异常视为通信异常
 								else
 								{
-									break;
+									logger.error("ds服务通信异常", e);
+
+									// 失败转移
+									instance = failStrategy.failover(serviceDefine, instance, instances, e);
+									if (instance != null)
+									{
+										continue;
+									}
+									// 没有在线服务实例
+									else
+									{
+										break;
+									}
+								}
+							}
+							finally
+							{
+								if (rs != null)
+								{
+									// 归还连接
+									pool.returnClient(rs);
 								}
 							}
 						}
-						finally
-						{
-							if (rs != null)
-							{
-								// 归还连接
-								pool.returnClient(rs);
-							}
-						}
+					}
+					catch (Throwable e)
+					{
+						return e;
+					}
+					finally
+					{
+						// 清理线程上下文
+						failStrategy.cleanThreadContext();
 					}
 				}
 				return new RuntimeException("服务" + serviceDefine.serviceName + "没有在线的服务实例存在");

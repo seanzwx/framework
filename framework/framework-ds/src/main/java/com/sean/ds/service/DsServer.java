@@ -41,10 +41,15 @@ public final class DsServer
 			{
 				weight = Float.parseFloat(Config.getProperty("service." + config + ".route.weight"));
 			}
+			int retries = 1;
+			if (Config.getProperty("service." + config + ".fail.retries") != null)
+			{
+				retries = Integer.parseInt(Config.getProperty("service." + config + ".fail.retries"));
+			}
 
 			// 发布服务
 			Object serviceImpl = c.newInstance();
-			ServiceDefine define = new ServiceDefine(iface, proxy, route, fail);
+			ServiceDefine define = new ServiceDefine(iface, proxy, route, fail, retries);
 			ServiceInstance instance = new ServiceInstance(hostname, port, weight);
 			ServicePublisher.publishService(define, serviceImpl, instance);
 		}

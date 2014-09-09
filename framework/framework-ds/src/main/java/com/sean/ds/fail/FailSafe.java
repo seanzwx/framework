@@ -6,16 +6,16 @@ import com.sean.ds.service.ServiceDefine;
 import com.sean.ds.service.ServiceInstance;
 
 /**
- * 快速失败，只发起一次调用，失败立即报错,通常用于非幂等性的写操作
+ * 失败自动切换，当出现失败，不做任何操作
  * @author sean
  */
-public class FailFast implements FailStrategy
+public class FailSafe implements FailStrategy
 {
 	@Override
 	public ServiceInstance failover(ServiceDefine serviceDefine, ServiceInstance failInstance, List<ServiceInstance> onlineInstances,
 			Throwable exception)
 	{
-		throw new RuntimeException("调用服务" + serviceDefine + "失败", exception);
+		return null;
 	}
 
 	@Override
