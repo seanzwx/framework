@@ -33,6 +33,8 @@ public abstract class FieldWriter
 				break;
 			case '\n':
 				sb.append("\\n");
+			case '\'':
+				sb.append("\\'");
 				break;
 			case '\r':
 				sb.append("\\r");
