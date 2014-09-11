@@ -10,12 +10,23 @@
 
 	<artifactId>framework-common</artifactId>
 	<packaging>jar</packaging>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>com.sean</groupId>
 			<artifactId>framework-log</artifactId>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>*.*</exclude>
+				</excludes>
+			</resource>
+		</resources>
+	</build>
 
 </project>
