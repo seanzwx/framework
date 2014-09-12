@@ -69,10 +69,14 @@ public class PersistFactoryRdb extends PersistFactory
 		{
 			BasicDataSource bds = new BasicDataSource();
 			bds.setDriverClassName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://" + ds.getHostname() + ":" + ds.getPort() + "/" + ds.getDbName() + "?useUnicode=true&characterEncoding=utf-8&autoReconnect=true";
+			String url = "jdbc:mysql://" + ds.getHostname() + ":" + ds.getPort() + "/" + ds.getDbName()
+					+ "?useUnicode=true&characterEncoding=utf-8&autoReconnect=true";
 			bds.setUrl(url);
 			bds.setUsername(ds.getUser());
 			bds.setPassword(ds.getPassword());
+
+			bds.setValidationQuery("select 1");
+			bds.setTestWhileIdle(true);
 			return bds;
 		}
 		else
