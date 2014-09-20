@@ -17,7 +17,7 @@ import com.sean.service.ext.YYYYMMDDHHMMSSDateChecker;
  */
 public final class RequestChecker
 {
-	private ParameterChecker[] checkers = new ParameterChecker[6];
+	private ParameterChecker[] checkers = new ParameterChecker[7];
 
 	/**
 	 * 初始化验证器
