@@ -2,6 +2,7 @@ package com.sean.service.core;
 
 import com.sean.service.entity.ParameterEntity;
 import com.sean.service.enums.ParameterType;
+import com.sean.service.ext.EnumChecker;
 import com.sean.service.ext.FloatChecker;
 import com.sean.service.ext.IntegerChecker;
 import com.sean.service.ext.LongChecker;
@@ -29,6 +30,7 @@ public final class RequestChecker
 		checkers[3] = new StringChecker();
 		checkers[4] = new YYYYMMDDDateChecker();
 		checkers[5] = new YYYYMMDDHHMMSSDateChecker();
+		checkers[6] = new EnumChecker();
 	}
 
 	/**

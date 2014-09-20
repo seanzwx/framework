@@ -15,16 +15,19 @@ public class ParameterEntity
 	private ParameterType type;
 	private String regex;
 	private int length;
+	private String[] enumVals;
 	private String description;
 	private String errormsg;
 
-	public ParameterEntity(String name, DataType dataType, ParameterType type, String regex, int length, String description, String errormsg)
+	public ParameterEntity(String name, DataType dataType, ParameterType type, String regex, int length, String[] enumVals, String description,
+			String errormsg)
 	{
 		this.name = name;
 		this.dataType = dataType;
 		this.type = type;
 		this.regex = regex;
 		this.length = length;
+		this.enumVals = enumVals;
 		this.description = description;
 		this.errormsg = errormsg;
 	}
@@ -62,6 +65,11 @@ public class ParameterEntity
 	public String getErrormsg()
 	{
 		return errormsg;
+	}
+
+	public String[] getEnumVals()
+	{
+		return enumVals;
 	}
 
 }

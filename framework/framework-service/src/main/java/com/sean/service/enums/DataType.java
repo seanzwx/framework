@@ -29,7 +29,11 @@ public enum DataType
 	/**
 	 * yy-MM-dd hh:mm:ss date
 	 */
-	YYYYMMDDHHMMSSDate(3);
+	YYYYMMDDHHMMSSDate(5),
+	/**
+	 * 枚举
+	 */
+	Enum(6);
 
 	private int code;
 

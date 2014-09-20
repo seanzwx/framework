@@ -48,4 +48,10 @@ public @interface ParameterConfig
 	 * max length of string
 	 */
 	int length() default 0;
+	
+	/**
+	 * values of enum
+	 * @return
+	 */
+	String[] enumVals() default {};
 }
