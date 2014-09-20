@@ -1,6 +1,10 @@
 package com.sean.unittest.parser;
 
 import java.lang.reflect.Method;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.sean.service.core.Action;
 import com.sean.unittest.annotation.TestSuiteConfig;
@@ -37,9 +41,24 @@ public class TestSuiteParser
 
 		// 读取测试用例
 		Method[] ms = testSuiteClass.getDeclaredMethods();
-		for (int i = 0; i < ms.length; i++)
+		List<Method> list = new LinkedList<>();
+		for (Method it : ms)
 		{
-			ts.addTestCase(parser.parse(ms[i]));
+			list.add(it);
+		}
+		// 根据方法名称排序
+		Collections.sort(list, new Comparator<Method>()
+		{
+			@Override
+			public int compare(Method o1, Method o2)
+			{
+				return o1.getName().compareTo(o2.getName());
+			}
+		});
+		
+		for(Method it : list)
+		{
+			ts.addTestCase(parser.parse(it));
 		}
 		return ts;
 	}
