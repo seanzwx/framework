@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title>index.html</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="./script/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="./script/ajax/ajax.js"></script>
+    <script type="text/javascript" src="./script/juicer-min.js"></script>
+    <script type="text/javascript" src="./script/global.js"></script>
+    
+    <style type="text/css">
+.t
+{
+	background-color:#ffffff;
+	color:#000000;
+	border: none;
+}   
+    
+.t_head
+{
+	background-color:#cccccc;
+	height:30px;
+	text-align: left;
+}
+
+.td1
+{
+	height:26px;
+	text-align: left;
+	background-color:#ececec;
+	border-bottom: solid 1px #dcdcdc;
+}
+    </style>
+  </head>
+  
+  <body id="content" style="padding: 0px; margin: 0px;padding: 6px;background: #300A24; color: #ffffff;font-family: monospace;font-size: 12px;" onload="loadData()">
+  	
+  	<script id="tpl_info" type="text/template">
+  	<table width="100%" border="0">
+  		<tr>
+  			<td>接口名称：${data.action}</td>
+  			<td colspan="3">接口描述：${data.descr}</td>
+  		</tr>
+  		<tr>
+  			<td>是否需要事务：${data.transation}</td>
+  			<td>是否需要认证：${data.auth}</td>
+			<td>返回类型：${data.returnType}</td>
+  			<td>权限ID：${data.permission}</td>
+  		</tr>
+		<tr>
+  			<td colspan="2">URL：${data.url}</td>
+			<td colspan="3">接口实现类：${data.clazz}</td>
+  		</tr>
+  	</table>
+  	
+  	<br>
+  	<div>必填参数</div>
+	<div>
+  		<table width="100%" class="t" cellpadding="0" cellspacing="0">
+  			<tr>
+  				<td width="15%" class="t_head" style="padding-left: 6px">名称</td>
+  				<td width="15%" class="t_head">数据类型</td>
+  				<td width="10%" class="t_head">参数类型</td>
+				<td width="10%" class="t_head">最大长度</td>
+  				<td width="20%" class="t_head">正则表达式</td>
+  				<td width="*" class="t_head">参数描述</td>
+  			</tr>
+
+			{@each data.mustParams as it,index}
+  			<tr>
+  				<td class="td1" style="padding-left: 6px">${it.name}</td>
+  				<td class="td1">${it.dataType}</td>
+  				<td class="td1">${it.type}</td>
+				<td class="td1">${it.length}</td>
+  				<td class="td1">${it.regex}</td>
+  				<td class="td1">${it.description}</td>
+  			</tr>
+			{@/each}
+
+  		</table>
+	</div>
+  	
+  	<br>
+  	<div>可选参数</div>
+	<div>
+  		<table width="100%" class="t" cellpadding="0" cellspacing="0">
+  			<tr>
+  				<td width="15%" class="t_head" style="padding-left: 6px">名称</td>
+  				<td width="15%" class="t_head">数据类型</td>
+  				<td width="10%" class="t_head">参数类型</td>
+				<td width="10%" class="t_head">最大长度</td>
+  				<td width="20%" class="t_head">正则表达式</td>
+  				<td width="*" class="t_head">参数描述</td>
+  			</tr>
+
+			{@each data.optionalParams as it}
+  			<tr>
+  				<td class="td1" style="padding-left: 6px">${it.name}</td>
+  				<td class="td1">${it.dataType}</td>
+  				<td class="td1">${it.type}</td>
+				<td class="td1">${it.length}</td>
+  				<td class="td1">${it.regex}</td>
+  				<td class="td1">${it.description}</td>
+  			</tr>
+			{@/each}
+
+  		</table>
+	</div>
+
+	<br>
+  	<div>返回参数: {"state":"Success", "code":1000, "msg":"Success", "data":{...}}</div>
+	<div>
+  		<table width="100%" class="t" cellpadding="0" cellspacing="0">
+  			<tr>
+  				<td width="12%" class="t_head" style="padding-left: 6px">名称</td>
+  				<td width="10%" class="t_head">数据类型</td>
+  				<td width="12%" class="t_head">实体</td>
+				<td width="40%" class="t_head">参数域</td>
+  				<td width="*" class="t_head">参数描述</td>
+  			</tr>
+
+			{@each data.returnParams as it,index}
+  			<tr>
+  				<td class="td1" style="padding-left: 6px">${it.name}</td>
+				<td class="td1">${it.format}</td>
+  				<td class="td1">${it.entity}</td>
+				<td class="td1">
+				
+					<table width="100%">
+					{@each it.fields as f}
+						<tr>
+							<td>${f.name} - ${f.descr}</td>
+						</tr>
+					{@/each}
+					</table>
+
+				</td>
+  				<td class="td1">${it.description}</td>
+  			</tr>
+			{@/each}
+
+  		</table>
+	</div>
+	</script>
+  </body>
+</html>
+
+
+<script type="text/javascript">
+function loadData()
+{
+	var actName = getQueryString('actName');
+	var version = getQueryString('version');
+	if(actName == '' || version == '')
+	{
+		return;
+	}
+	
+	ajax("api/v1/InquireApiAction", "action=" + actName + "&version=" + version, function(jsonstr, jsonobj)
+	{	
+		var tpl = document.getElementById('tpl_info').innerHTML;
+		var data = 
+		{
+			data : jsonobj.data.api,
+		};
+		
+		data.data.url = 'http://' + host + ":" + port + '/' + appname + '/api/' + data.data.version + "/" + data.data.action;
+		var html = juicer(tpl, data);
+		$('#content').append(html);
+	});
+}
+</script>
