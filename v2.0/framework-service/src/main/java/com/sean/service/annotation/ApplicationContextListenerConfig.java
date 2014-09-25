@@ -28,5 +28,5 @@ public @interface ApplicationContextListenerConfig
 	/**
 	 * description
 	 */
-	String description();
+	String descr();
 }
