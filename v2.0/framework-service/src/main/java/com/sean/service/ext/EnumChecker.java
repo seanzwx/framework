@@ -23,4 +23,10 @@ public class EnumChecker implements ParameterChecker
 		}
 		return false;
 	}
+
+	@Override
+	public Object getValue(String value)
+	{
+		return Integer.parseInt(value);
+	}
 }

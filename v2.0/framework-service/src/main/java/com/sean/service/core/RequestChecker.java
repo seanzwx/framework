@@ -17,7 +17,7 @@ import com.sean.service.ext.YYYYMMDDHHMMSSDateChecker;
  */
 public final class RequestChecker
 {
-	private ParameterChecker[] checkers = new ParameterChecker[7];
+	public static final ParameterChecker[] checkers = new ParameterChecker[7];
 
 	/**
 	 * 初始化验证器
@@ -43,7 +43,7 @@ public final class RequestChecker
 		// 如果是单个参数
 		if (param.getType() == ParameterType.Single)
 		{
-			return this.checkers[param.getDataType().getValue()].check(val[0], param);
+			return checkers[param.getDataType().getValue()].check(val[0], param);
 		}
 		// 如果是批量参数
 		else
@@ -51,7 +51,7 @@ public final class RequestChecker
 			boolean rs = false;
 			for (int i = 0; i < val.length; i++)
 			{
-				rs = this.checkers[param.getDataType().getValue()].check(val[i], param);
+				rs = checkers[param.getDataType().getValue()].check(val[i], param);
 				if (!rs)
 				{
 					return false;

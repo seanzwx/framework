@@ -22,4 +22,10 @@ public class FloatChecker implements ParameterChecker
 		}
 		return false;
 	}
+
+	@Override
+	public Object getValue(String value)
+	{
+		return Float.parseFloat(value);
+	}
 }

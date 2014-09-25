@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 import com.sean.log.core.LogFactory;
 import com.sean.persist.core.Entity;
 import com.sean.persist.core.EntityDao;
+import com.sean.persist.core.EntityValue;
 import com.sean.persist.core.Partition;
 import com.sean.persist.core.PersistContext;
 import com.sean.persist.entity.EntityEntity;
@@ -576,7 +577,7 @@ public abstract class EntityDaoRdb<E extends Entity> extends EntityDao<E>
 		{
 			vals.put(allColumns[i], rs.getObject(allColumns[i]));
 		}
-		ent.setValues(vals);
+		ent.setValues(new EntityValue(vals));
 		return ent;
 	}
 

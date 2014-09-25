@@ -43,5 +43,5 @@ public abstract class Entity
 	 * 设置实体的值
 	 * @param vals				值map,key为identifier.fieldName
 	 */
-	public abstract void setValues(Map<String, Object> vals);
+	public abstract void setValues(EntityValue vals);
 }

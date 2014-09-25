@@ -17,6 +17,7 @@ import com.mongodb.MongoClient;
 import com.sean.log.core.LogFactory;
 import com.sean.persist.core.Entity;
 import com.sean.persist.core.EntityDao;
+import com.sean.persist.core.EntityValue;
 import com.sean.persist.entity.ColumnEntity;
 import com.sean.persist.entity.DataSourceEntity;
 import com.sean.persist.entity.EntityEntity;
@@ -278,7 +279,7 @@ public final class EntityDaoMongo<E extends Entity> extends EntityDao<E>
 			e.printStackTrace();
 			logger.error(e.getMessage(), e);
 		}
-		ent.setValues(data);
+		ent.setValues(new EntityValue(data));
 		ent.setKey(rs.get(ID));
 		return ent;
 	}

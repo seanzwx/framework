@@ -8,6 +8,8 @@ import java.util.Map;
 import org.apache.avro.specific.SpecificRecordBase;
 
 import com.sean.persist.core.Entity;
+import com.sean.persist.core.EntityValue;
+import com.sean.service.entity.ParameterEntity;
 import com.sean.service.enums.ResultState;
 
 /**
@@ -23,8 +25,11 @@ public abstract class Session
 	protected String msg = "";
 	protected int code = 0;
 
-	public Session()
+	protected Action action;
+
+	public Session(Action action)
 	{
+		this.action = action;
 		this.returnData = new HashMap<String, Object>(8);
 	}
 
@@ -135,7 +140,7 @@ public abstract class Session
 	{
 		this.returnData.put(name, value);
 	}
-	
+
 	/**
 	 * add return attribute
 	 * @param name
@@ -396,6 +401,43 @@ public abstract class Session
 	 * </p>
 	 */
 	public abstract Map<String, String[]> getParameterMap();
+
+	/**
+	 * 通过参数注入单个实体
+	 * @param entity
+	 */
+	public void fillSingleEntity(Entity entity)
+	{
+		if (entity == null)
+		{
+			throw new NullPointerException("entity is null, can not fill values");
+		}
+		String tmp = null;
+
+		Map<String, Object> map = new HashMap<>();
+
+		// fill must parameter
+		ParameterEntity[] mustParams = action.getActionEntity().getMustParams();
+		for (ParameterEntity it : mustParams)
+		{
+			tmp = this.getParameter(it.getName());
+			map.put(it.getName(), RequestChecker.checkers[it.getDataType().getValue()].getValue(tmp));
+		}
+
+		// fill optional parameter
+		ParameterEntity[] optionalParams = action.getActionEntity().getOptionalParams();
+		for (ParameterEntity it : optionalParams)
+		{
+			tmp = this.getParameter(it.getName());
+			if (tmp != null && tmp.length() > 0)
+			{
+				map.put(it.getName(), RequestChecker.checkers[it.getDataType().getValue()].getValue(tmp));
+			}
+		}
+
+		// fill into entity
+		entity.setValues(new EntityValue(map));
+	}
 
 	/**
 	 * get remote address

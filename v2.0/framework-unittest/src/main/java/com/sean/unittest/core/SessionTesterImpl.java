@@ -15,7 +15,7 @@ public final class SessionTesterImpl extends Session
 
 	public SessionTesterImpl(Action action, Map<String, Object> httpsession, Map<String, String[]> parameters)
 	{
-		super();
+		super(action);
 		this.parameters = parameters;
 	}
 

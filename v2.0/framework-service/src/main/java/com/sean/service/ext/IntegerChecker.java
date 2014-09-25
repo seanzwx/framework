@@ -30,4 +30,10 @@ public class IntegerChecker implements ParameterChecker
 		Matcher matcher = pattern.matcher("20121");
 		System.out.println(matcher.matches());
 	}
+
+	@Override
+	public Object getValue(String value)
+	{
+		return Integer.parseInt(value);
+	}
 }

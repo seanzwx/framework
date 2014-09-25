@@ -37,4 +37,10 @@ public class StringChecker implements ParameterChecker
 		}
 		return false;
 	}
+
+	@Override
+	public Object getValue(String value)
+	{
+		return value;
+	}
 }

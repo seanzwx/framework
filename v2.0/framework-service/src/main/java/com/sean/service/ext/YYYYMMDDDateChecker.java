@@ -22,4 +22,10 @@ public class YYYYMMDDDateChecker implements ParameterChecker
 		}
 		return false;
 	}
+
+	@Override
+	public Object getValue(String value)
+	{
+		throw new UnsupportedOperationException("未实现");
+	}
 }

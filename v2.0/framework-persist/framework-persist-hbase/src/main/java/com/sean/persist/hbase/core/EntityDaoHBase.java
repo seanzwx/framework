@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 import com.sean.log.core.LogFactory;
 import com.sean.persist.core.Entity;
 import com.sean.persist.core.EntityDao;
+import com.sean.persist.core.EntityValue;
 import com.sean.persist.entity.ColumnEntity;
 import com.sean.persist.entity.EntityEntity;
 import com.sean.persist.ext.Condition;
@@ -322,7 +323,7 @@ public final class EntityDaoHBase<E extends Entity> extends EntityDao<E>
 			e.printStackTrace();
 			logger.error(e.getMessage(), e);
 		}
-		ent.setValues(data);
+		ent.setValues(new EntityValue(data));
 		ent.setKey(this.keyByteUtil.parse(rs.getRow()));
 		return ent;
 	}

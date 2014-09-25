@@ -19,7 +19,7 @@ public final class SessionServletImpl extends Session
 
 	public SessionServletImpl(Action action, ServletRequest request, ServletResponse response)
 	{
-		super();
+		super(action);
 		this.request = request;
 		this.response = response;
 
@@ -39,7 +39,7 @@ public final class SessionServletImpl extends Session
 						this.sid = c.getValue();
 						break;
 					}
-				}	
+				}
 			}
 		}
 	}

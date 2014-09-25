@@ -10,7 +10,7 @@ import com.sean.unittest.entity.TestCase;
 import com.sean.unittest.exception.TestCaseIllegalException;
 
 /**
- * 单元测试用力解析
+ * 单元测试用例解析
  * @author Sean
  */
 public class TestCaseParser
@@ -29,7 +29,7 @@ public class TestCaseParser
 		}
 
 		DescriptConfig descr = teseCase.getAnnotation(DescriptConfig.class);
-		String txt = descr == null ? "匿名测试用力" : descr.value();
+		String txt = descr == null ? "匿名测试用例" : descr.value();
 
 		TestCase tc = new TestCase(tcc.testTimes(), txt);
 		ParameterConfig[] pcs = teseCase.getAnnotationsByType(ParameterConfig.class);

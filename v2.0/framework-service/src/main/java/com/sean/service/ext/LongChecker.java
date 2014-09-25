@@ -22,4 +22,10 @@ public class LongChecker implements ParameterChecker
 		}
 		return false;
 	}
+
+	@Override
+	public Object getValue(String value)
+	{
+		return Long.parseLong(value);
+	}
 }

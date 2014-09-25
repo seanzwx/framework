@@ -16,4 +16,11 @@ public interface ParameterChecker
 	 * @return
 	 */
 	public boolean check(String val, ParameterEntity param);
+	
+	/**
+	 * 读取参数值, 传入字符串, 转成对应类型
+	 * @param value
+	 * @return
+	 */
+	public Object getValue(String value);
 }
