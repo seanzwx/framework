@@ -1,0 +1,10 @@
+logger1 DEBUG 2014-01-15 22:16:29 Message: debug 
+logger1 INFO 2014-01-15 22:16:29 Message: info 
+logger1 WARN 2014-01-15 22:16:29 Message: warn 
+logger1 ERROR 2014-01-15 22:16:29 Message: error 
+logger1 FATAL 2014-01-15 22:16:29 Message: fatal 
+logger2 DEBUG 2014-01-15 22:16:29 Message: debug 
+logger2 INFO 2014-01-15 22:16:29 Message: info 
+logger2 WARN 2014-01-15 22:16:29 Message: warn 
+logger2 ERROR 2014-01-15 22:16:29 Message: error 
+logger2 FATAL 2014-01-15 22:16:29 Message: fatal 

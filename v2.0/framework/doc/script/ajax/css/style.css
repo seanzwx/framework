@@ -1,0 +1,162 @@
+.ajax_ajaxMsgTop
+{
+	background-image: url('../images/tipTop.png');
+	background-repeat: no-repeat;
+	width : 212px;
+	height: 37px;
+}
+
+.ajax_ajaxMsgMid
+{
+	background-image: url('../images/tipMid.png');
+	background-repeat: repeat-y;
+	width : 212px;
+	padding-left: 25px;
+	padding-right : 25px;
+	word-break:break-all;
+	font-size: 13px;
+}
+
+.ajax_ajaxMsgBtm
+{
+	background-image: url('../images/tipBtm.png');
+	background-repeat: no-repeat;
+	width : 212px;
+	height: 32px;
+}
+
+.ajax_ajaxMsg
+{
+	position: absolute;
+	left: 10px;
+	top : 10px;
+}
+
+.ajax_alertBackground
+{
+	background-image : url("../images/back.png");
+	padding: 3px;
+	position: absolute;
+	width : 250px;
+	z-index: 100;
+}
+
+.ajax_alertBasic
+{
+	padding: 0px;
+	border: solid 2px #dcdcdc;
+}
+
+.ajax_alertTitle
+{
+	background-color: #3198ec;
+	height : 25px;
+	color: white;
+	border : none;
+	font-size: 13px;
+	font-weight: bold;
+	padding-left: 5px;
+	padding-top : 7px;
+}
+
+.ajax_alertBody
+{
+	background-color: white;
+	padding: 20px 20px 20px 20px;
+	font-size: 13px;
+	height : 50px;
+	width : auto;
+}
+
+.ajax_alertTail
+{
+	background-color: #eaf3fd;
+	border-top: solid 1px #FFCCCC;
+	padding: 5px;
+}
+
+.ajax_alertClose
+{
+	background-image: url("../images/close.png");
+	float: right;
+	margin-right: 3px; 
+	margin-bottom: 4px;
+	margin-top : -2px;
+	width : 20px;
+	height : 20px;
+	cursor: pointer;
+}
+
+.ajax_alertMaxsize
+{
+	background-image: url("../images/maxsize.png");
+	float: right;
+	margin-right: 3px; 
+	margin-bottom: 4px;
+	margin-top : -2px;
+	width : 20px;
+	height : 20px;
+	cursor: pointer;
+}
+
+.ajax_alertMinsize
+{
+	background-image: url("../images/minsize.png");
+	float: right;
+	margin-right: 3px; 
+	margin-bottom: 4px;
+	margin-top : -2px;
+	width : 20px;
+	height : 20px;
+	cursor: pointer;
+}
+
+.ajax_alertOk
+{
+	background-image: url("../images/ok.png");
+	margin: auto;
+	padding: auto;
+	width : 60px;
+	height: 20px;
+	border: 0px;
+	cursor: pointer;
+}
+
+.ajax_alertCancel
+{
+	background-image: url("../images/cancel.png");
+	margin: auto;
+	padding: auto;
+	width : 60px;
+	height: 20px;
+	border: 0px;
+	cursor: pointer;
+}
+
+.ajax_cover
+{
+	position:absolute;
+	z-index:99;
+	filter:alpha(opacity=30);
+	background : gray;
+	opacity: 0.3;
+	-moz-opacity: 0.3;
+	left:0;
+	top:0;
+	padding: -10px;
+	margin: -10px;
+}
+
+.ajax_opacity_cover
+{
+	position:absolute;
+	z-index:99;
+	filter:alpha(opacity = 0);
+	background : gray;
+	opacity: 0;
+	-moz-opacity: 0;
+	left:0;
+	top:0;
+	padding: -10px;
+	margin: -10px;
+}

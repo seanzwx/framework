@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html style="height:100%">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="./script/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="./script/ajax/ajax.js"></script>
+    <script type="text/javascript" src="./script/juicer-min.js"></script>
+  </head>
+  
+  <body style="padding: 0px; margin: 0px;height: 100%;" onload="getList()">
+  	<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+  		<tr height="100%">
+  			<td width="260" valign="top" style="overflow-x:hidden;background: #300A24; color: #ffffff;font-family: monospace;font-size: 13px;">
+  				<div style="padding: 1px;margin: 1px;">
+  					<input id="key" style="height: 24px;font-size: 14px;font-family: monospace;border-color: #300A24;position: fixed;left: 1px; top: 1px;width: 240px;" onkeyup="filterAction()"/>
+  				</div>
+  				<div>&nbsp;</div>
+  				<div id="list" style="padding: 5px;">
+  					<script id="tpl_list" type="text/template">
+						{@each data as it}
+						{@if it.permission !== -1}
+							<a onclick="showAction('action.html?actName=${it.action}&version=${it.version}')" href="javascript:void(0)" style="color:#ffffff;text-decoration: none;">
+								<div style="border-bottom: dashed 1px;padding: 5px">
+  									<span>${it.action} - ${it.version}</span><br>
+  									<span>${it.descr}&nbsp;</span>
+  								</div>
+							</a>
+						{@/if}
+        				{@/each}
+					</script>
+
+  				</div>
+  			</td>
+  		</tr>
+  	</table>
+  </body>
+</html>
+
+
+<script type="text/javascript">
+var actions;
+
+function getList()
+{
+	ajax("api/v1/InquireApiListAction","", function(jsonstr, jsonobj)
+	{
+		actions = jsonobj.data.apiList;
+		var tpl = document.getElementById('tpl_list').innerHTML;
+		var data = 
+		{
+			data : actions,
+		};
+		var html = juicer(tpl, data);
+		$('#list').append(html);
+	});
+}
+
+function filterAction()
+{
+	var len = actions.length;
+	
+	var key = $('#key').val();
+	if(key != "")
+	{
+		for(var i = 0 ; i < len ;i++)
+		{
+			if(!startWith(actions[i].action.toLowerCase(), key.toLowerCase()))
+			{
+				actions[i].permission = -1;
+			}
+			else
+			{
+				actions[i].permission = 1;
+			}
+		}
+	}
+	else
+	{
+		for(var i = 0 ; i < len ;i++)
+		{
+			actions[i].permission = 1;
+		}
+	}
+	
+	$('#list>a').remove();
+	var tpl = document.getElementById('tpl_list').innerHTML;
+	var data = 
+	{
+		data : actions,
+	};
+	var html = juicer(tpl, data);
+	$('#list').append(html);
+}
+
+function startWith(srcstr, keystr)
+{
+	var key_len = parseInt(keystr.length);
+	var src_len = parseInt(srcstr.length);
+	
+	if(key_len > src_len)
+	{
+		return false;
+	}
+	else
+	{
+		for(var i = 0;i < key_len; i++)
+		{
+			if(srcstr.charAt(i) != keystr.charAt(i))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+}
+
+function showAction(url)
+{
+	parent.frames["action"].location.href = url;
+}
+</script>
