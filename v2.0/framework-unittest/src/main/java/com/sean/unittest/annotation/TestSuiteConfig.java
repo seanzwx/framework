@@ -20,5 +20,5 @@ public @interface TestSuiteConfig
 	/**
 	 * <p>测试的action</p>
 	 */
-	Class<? extends Action> action();
+	Class<? extends Action> value();
 }

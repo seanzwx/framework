@@ -32,15 +32,15 @@ public class TestSuiteParser
 		{
 			throw new TestSuiteIllegalException(testSuiteClass.getName());
 		}
-		if (tsc.action().getSuperclass() != Action.class)
+		if (tsc.value().getSuperclass() != Action.class)
 		{
-			throw new TestSuiteActionException(testSuiteClass.getName(), tsc.action());
+			throw new TestSuiteActionException(testSuiteClass.getName(), tsc.value());
 		}
 		
 		DescriptConfig descr = testSuiteClass.getAnnotation(DescriptConfig.class);
 		String txt = descr == null ? "匿名测试套件" : descr.value();
 		
-		TestSuite ts = new TestSuite(tsc.action(), txt);
+		TestSuite ts = new TestSuite(tsc.value(), txt);
 
 		TestCaseParser parser = new TestCaseParser();
 
