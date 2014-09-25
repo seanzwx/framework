@@ -31,5 +31,5 @@ public @interface ReturnParameterConfig
 	/**
 	 * description
 	 */
-	String description();
+	String descr();
 }

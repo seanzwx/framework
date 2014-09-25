@@ -41,7 +41,7 @@ public class FieldWriterEntityList extends FieldWriter
 
 			Entity entity = null;
 			Map<String, Object> data = null;
-			Map<String, String> dicVals = null;
+			Map<String, Object> dicVals = null;
 			UseDicEntity[] dics = null;
 			UseDicEntity dic = null;
 			String[] fields = null;

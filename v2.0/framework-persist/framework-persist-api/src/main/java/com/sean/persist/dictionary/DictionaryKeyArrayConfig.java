@@ -1,4 +1,4 @@
-package com.sean.unittest.annotation;
+package com.sean.persist.dictionary;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -7,16 +7,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>单元测试箱，可以批量测试多个接口</p>
+ * dictionary key config
  * @author sean
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface TestBoxConfig
+public @interface DictionaryKeyArrayConfig
 {
-	/**
-	 * <p>单元测试套件类数组</p>
-	 */
-	Class<?>[] testSuites() default {};
+	DictionaryKeyConfig[] value();
 }

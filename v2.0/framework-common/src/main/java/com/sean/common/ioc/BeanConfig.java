@@ -18,5 +18,5 @@ public @interface BeanConfig
 	/**
 	 * description
 	 */
-	String description();
+	String value();
 }

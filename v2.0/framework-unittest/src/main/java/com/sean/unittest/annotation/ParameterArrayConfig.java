@@ -6,17 +6,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- * <p>单元测试箱，可以批量测试多个接口</p>
- * @author sean
- */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface TestBoxConfig
+@Target(ElementType.METHOD)
+public @interface ParameterArrayConfig
 {
-	/**
-	 * <p>单元测试套件类数组</p>
-	 */
-	Class<?>[] testSuites() default {};
+	ParameterConfig[] value();
 }

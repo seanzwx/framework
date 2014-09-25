@@ -11,7 +11,7 @@ public class ParameterParser
 {
 	public ParameterEntity parse(ParameterConfig pc, String name)
 	{
-		ParameterEntity pe = new ParameterEntity(name, pc.dataType(), pc.type(), pc.regex(), pc.length(), pc.enumVals(), pc.description(),
+		ParameterEntity pe = new ParameterEntity(name, pc.dataType(), pc.type(), pc.regex(), pc.length(), pc.enumVals(), pc.descr(),
 				pc.errormsg());
 		return pe;
 	}

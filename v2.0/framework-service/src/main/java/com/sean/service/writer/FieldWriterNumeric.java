@@ -29,7 +29,7 @@ public class FieldWriterNumeric extends FieldWriter
 		Object val = retMap.get(name);
 		if (val != null)
 		{
-			json.append("\"").append(name).append("\":\"").append(val.toString()).append("\"");
+			json.append("\"").append(name).append("\":").append(val.toString());
 		}
 		else
 		{

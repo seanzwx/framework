@@ -2,6 +2,7 @@ package com.sean.unittest.parser;
 
 import java.lang.reflect.Method;
 
+import com.sean.service.annotation.DescriptConfig;
 import com.sean.unittest.annotation.ParameterConfig;
 import com.sean.unittest.annotation.TestCaseConfig;
 import com.sean.unittest.entity.Parameter;
@@ -27,8 +28,11 @@ public class TestCaseParser
 			throw new TestCaseIllegalException(teseCase.getName());
 		}
 
-		TestCase tc = new TestCase(tcc.testTimes(), tcc.description());
-		ParameterConfig[] pcs = tcc.parameters();
+		DescriptConfig descr = teseCase.getAnnotation(DescriptConfig.class);
+		String txt = descr == null ? "匿名测试用力" : descr.value();
+
+		TestCase tc = new TestCase(tcc.testTimes(), txt);
+		ParameterConfig[] pcs = teseCase.getAnnotationsByType(ParameterConfig.class);
 		ParameterConfig pc = null;
 		Parameter param = null;
 		for (int i = 0; i < pcs.length; i++)

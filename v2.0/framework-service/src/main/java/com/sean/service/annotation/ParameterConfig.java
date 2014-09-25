@@ -31,7 +31,7 @@ public @interface ParameterConfig
 	/**
 	 * description
 	 */
-	String description();
+	String descr();
 	
 	/**
 	 * error msg

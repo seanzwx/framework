@@ -48,5 +48,5 @@ public @interface EntityConfig
 	/**
 	 * 备注
 	 */
-	String description();
+	String descr();
 }

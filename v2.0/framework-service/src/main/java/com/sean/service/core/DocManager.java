@@ -108,7 +108,7 @@ public class DocManager
 						ColumnConfig cc = f.getAnnotation(ColumnConfig.class);
 						if (cc != null)
 						{
-							descr = cc.description();
+							descr = cc.descr();
 						}
 					}
 					catch (NoSuchFieldException e)

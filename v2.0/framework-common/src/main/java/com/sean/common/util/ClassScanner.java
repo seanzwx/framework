@@ -171,6 +171,7 @@ public final class ClassScanner
 					}
 				}
 			}
+			jarInput.close();
 		}
 		finally
 		{

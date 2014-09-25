@@ -21,9 +21,4 @@ public @interface TestSuiteConfig
 	 * <p>测试的action</p>
 	 */
 	Class<? extends Action> action();
-
-	/**
-	 * <p>套件描述，无实际意思</p>
-	 */
-	String description();
 }

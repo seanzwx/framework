@@ -43,7 +43,7 @@ public class FieldWriterAvroEntityList extends FieldWriter
 			int length = entitys.size();
 
 			SpecificRecordBase entity = null;
-			Map<String, String> dicVals = null;
+			Map<String, Object> dicVals = null;
 			UseDicEntity[] dics = null;
 			UseDicEntity dic = null;
 			String[] fields = null;

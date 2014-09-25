@@ -20,7 +20,7 @@ public @interface ReturnParameterProviderConfig
 	/**
 	 * 注释
 	 */
-	String description();
+	String descr();
 	
 	/**
 	 * 模块

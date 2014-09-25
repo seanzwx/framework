@@ -18,7 +18,7 @@ public abstract class Dictionary
 	 * @param id						字典检索Id
 	 * @param dic						将检索到的数据放入该map中，注意，不要重复的key
 	 */
-	public abstract void getDicVal(Object id, Map<String, String> dic);
+	public abstract void getDicVal(Object id, Map<String, Object> dic);
 
 	public void init(DictionaryEntity entity)
 	{

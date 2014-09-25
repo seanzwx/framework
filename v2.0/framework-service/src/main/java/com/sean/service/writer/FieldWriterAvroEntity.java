@@ -40,7 +40,7 @@ public class FieldWriterAvroEntity extends FieldWriter
 			json.append("\"").append(name).append("\":{");
 
 			// 获取所有数据字典值
-			Map<String, String> dicVals = new HashMap<>();
+			Map<String, Object> dicVals = new HashMap<>();
 			UseDicEntity[] dics = param.getDics();
 			UseDicEntity dic;
 			for (int i = 0; i < dics.length; i++)

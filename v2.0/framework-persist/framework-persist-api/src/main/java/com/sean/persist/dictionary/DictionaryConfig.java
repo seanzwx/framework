@@ -18,10 +18,5 @@ public @interface DictionaryConfig
 	/**
 	 * description
 	 */
-	String description();
-
-	/**
-	 * this define all fields that the dictionary include
-	 */
-	DictionaryKeyConfig[] keys();
+	String value();
 }

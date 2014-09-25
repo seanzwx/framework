@@ -38,7 +38,7 @@ public class FieldWriterEntity extends FieldWriter
 			Map<String, Object> data = entity.getValues();
 
 			// 获取所有数据字典值
-			Map<String, String> dicVals = new HashMap<>();
+			Map<String, Object> dicVals = new HashMap<>();
 			UseDicEntity[] dics = param.getDics();
 			UseDicEntity dic;
 			for (int i = 0; i < dics.length; i++)

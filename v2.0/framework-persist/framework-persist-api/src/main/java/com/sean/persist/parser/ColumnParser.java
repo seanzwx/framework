@@ -35,7 +35,7 @@ public class ColumnParser
 					{
 						columnStr = f.getName();
 					}
-					ColumnEntity column = new ColumnEntity(columnStr, cc.primaryKey(), cc.sequenceName(), cc.description(), f);
+					ColumnEntity column = new ColumnEntity(columnStr, cc.primaryKey(), cc.sequenceName(), cc.descr(), f);
 					columns.add(column);
 				}
 			}

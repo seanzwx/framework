@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.sean.service.annotation.DescriptConfig;
 import com.sean.service.core.Action;
 import com.sean.unittest.annotation.TestSuiteConfig;
 import com.sean.unittest.entity.TestSuite;
@@ -35,7 +36,11 @@ public class TestSuiteParser
 		{
 			throw new TestSuiteActionException(testSuiteClass.getName(), tsc.action());
 		}
-		TestSuite ts = new TestSuite(tsc.action(), tsc.description());
+		
+		DescriptConfig descr = testSuiteClass.getAnnotation(DescriptConfig.class);
+		String txt = descr == null ? "匿名测试套件" : descr.value();
+		
+		TestSuite ts = new TestSuite(tsc.action(), txt);
 
 		TestCaseParser parser = new TestCaseParser();
 
@@ -55,8 +60,8 @@ public class TestSuiteParser
 				return o1.getName().compareTo(o2.getName());
 			}
 		});
-		
-		for(Method it : list)
+
+		for (Method it : list)
 		{
 			ts.addTestCase(parser.parse(it));
 		}

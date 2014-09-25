@@ -168,12 +168,13 @@ public final class HttpWriterServletImpl implements HttpWriter
 				response.setContentLength((int) file.length());
 
 				ServletOutputStream out = response.getOutputStream();
+				InputStream inStream = new FileInputStream(file);
 				try
 				{
 					HttpServletResponse resp = (HttpServletResponse) response;
 					resp.setHeader("Content-Disposition", "attachment;filename=" + file.getName());
 
-					InputStream inStream = new FileInputStream(file);
+					
 					int readLength;
 					byte[] buf = new byte[10240];
 					while (((readLength = inStream.read(buf)) != -1))
@@ -184,6 +185,7 @@ public final class HttpWriterServletImpl implements HttpWriter
 				}
 				finally
 				{
+					inStream.close();
 					out.close();
 				}
 			}

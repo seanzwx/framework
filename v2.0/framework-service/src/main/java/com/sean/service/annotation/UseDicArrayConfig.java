@@ -1,4 +1,4 @@
-package com.sean.unittest.annotation;
+package com.sean.service.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -7,16 +7,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>单元测试箱，可以批量测试多个接口</p>
+ * use dic
  * @author sean
+ *
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface TestBoxConfig
+@Target(ElementType.FIELD)
+public @interface UseDicArrayConfig
 {
-	/**
-	 * <p>单元测试套件类数组</p>
-	 */
-	Class<?>[] testSuites() default {};
+	UseDicConfig[] value();
 }

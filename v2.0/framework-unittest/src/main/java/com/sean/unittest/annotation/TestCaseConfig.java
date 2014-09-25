@@ -15,19 +15,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface TestCaseConfig
-{
-	/**
-	 * 参数
-	 */
-	ParameterConfig[] parameters() default {};
-	
+{	
 	/**
 	 * <p>运行次数，默认是1</p>
 	 */
 	int testTimes() default 1;
-	
-	/**
-	 * <p>测试用例描述，无实际意思</p>
-	 */
-	String description();
 }

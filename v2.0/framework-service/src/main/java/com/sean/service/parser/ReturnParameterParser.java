@@ -31,7 +31,7 @@ public class ReturnParameterParser
 	{
 		ReturnParameterConfig rpc = field.getAnnotation(ReturnParameterConfig.class);
 		FieldsConfig fs = field.getAnnotation(FieldsConfig.class);
-		UseDicConfig udc = field.getAnnotation(UseDicConfig.class);
+		UseDicConfig[] udcs = field.getAnnotationsByType(UseDicConfig.class);
 
 		UseDicEntity[] udes = new UseDicEntity[0];
 		// 如果是实体，检查配置项
@@ -46,42 +46,38 @@ public class ReturnParameterParser
 				throw new RuntimeException("the entity defined in return parameter " + field.get(obj) + " has not any output fields");
 			}
 
-			if (udc != null)
+			udes = new UseDicEntity[udcs.length];
+			for (int i = 0; i < udcs.length; i++)
 			{
-				udes = new UseDicEntity[udc.dic().length];
-				for (int i = 0; i < udc.dic().length; i++)
+				UseDicConfig it = udcs[i];
+				Class<?> dic = it.dic();
+				if (dic.getAnnotation(DictionaryConfig.class) == null)
 				{
-					Class<?> dic = udc.dic()[i];
-					if (dic.getAnnotation(DictionaryConfig.class) == null)
-					{
-						throw new RuntimeException("the dictionary class defined in return parameter " + field.get(obj) + " " + dic.getName()
-								+ " is not a dynamic dictionary");
-					}
-					if (!check(fs.value(), udc.field()[i]))
-					{
-						throw new RuntimeException("the dictionary field " + udc.field()[i] + " was not found in the fields of return parameter "
-								+ field.get(obj));
-					}
-
-					udes[i] = new UseDicEntity(udc.field()[i], udc.dic()[i].getName());
+					throw new RuntimeException("the dictionary class defined in return parameter " + field.get(obj) + " " + dic.getName()
+							+ " is not a dynamic dictionary");
 				}
+				if (!check(fs.value(), it.field()))
+				{
+					throw new RuntimeException("the dictionary field " + it.field() + " was not found in the fields of return parameter "
+							+ field.get(obj));
+				}
+
+				udes[i] = new UseDicEntity(it.field(), it.dic().getName());
 			}
 		}
-		else if(rpc.format() == Format.AvroEntity || rpc.format() == Format.AvroEntityList)
+		else if (rpc.format() == Format.AvroEntity || rpc.format() == Format.AvroEntityList)
 		{
-			if (udc != null)
+			udes = new UseDicEntity[udcs.length];
+			for (int i = 0; i < udcs.length; i++)
 			{
-				udes = new UseDicEntity[udc.dic().length];
-				for (int i = 0; i < udc.dic().length; i++)
+				UseDicConfig it = udcs[i];
+				Class<?> dic = it.dic();
+				if (dic.getAnnotation(DictionaryConfig.class) == null)
 				{
-					Class<?> dic = udc.dic()[i];
-					if (dic.getAnnotation(DictionaryConfig.class) == null)
-					{
-						throw new RuntimeException("the dictionary class defined in return parameter " + field.get(obj) + " " + dic.getName()
-								+ " is not a dynamic dictionary");
-					}
-					udes[i] = new UseDicEntity(udc.field()[i], udc.dic()[i].getName());
-				}	
+					throw new RuntimeException("the dictionary class defined in return parameter " + field.get(obj) + " " + dic.getName()
+							+ " is not a dynamic dictionary");
+				}
+				udes[i] = new UseDicEntity(it.field(), it.dic().getName());
 			}
 		}
 
@@ -123,7 +119,7 @@ public class ReturnParameterParser
 		{
 			fields = fs.value();
 		}
-		ReturnParameterEntity pe = new ReturnParameterEntity(field.get(obj).toString(), rpc.format(), rpc.entity(), fields, udes, rpc.description(),
+		ReturnParameterEntity pe = new ReturnParameterEntity(field.get(obj).toString(), rpc.format(), rpc.entity(), fields, udes, rpc.descr(),
 				fieldWriter);
 		return pe;
 	}

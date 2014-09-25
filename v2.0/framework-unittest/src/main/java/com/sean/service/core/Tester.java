@@ -7,6 +7,7 @@ import java.util.Map;
 import com.sean.config.core.Config;
 import com.sean.config.enums.ConfigEnum;
 import com.sean.service.annotation.ActionConfig;
+import com.sean.service.annotation.DescriptConfig;
 import com.sean.unittest.annotation.TestBoxConfig;
 import com.sean.unittest.core.HttpWriterTesterImpl;
 import com.sean.unittest.core.SessionTesterImpl;
@@ -75,7 +76,10 @@ public final class Tester
 
 		TestBoxConfig tbc = testBox.getAnnotation(TestBoxConfig.class);
 
-		System.out.println("test box --- " + tbc.description());
+		DescriptConfig descr = testBox.getAnnotation(DescriptConfig.class);
+		String txt = descr == null ? "匿名测试包" : descr.value();
+
+		System.out.println("test box --- " + txt);
 
 		Class<?>[] testSuites = tbc.testSuites();
 		for (int i = 0; i < testSuites.length; i++)

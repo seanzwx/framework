@@ -33,5 +33,5 @@ public @interface ColumnConfig
 	/**
 	 * description
 	 */
-	String description();
+	String descr();
 }
