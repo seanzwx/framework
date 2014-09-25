@@ -1,0 +1,13 @@
+@namespace("com.sean.ds.monitor")
+protocol ServiceMonitor
+{
+	record Report
+	{
+		string serviceName;
+		int requestCount;
+		int failedCount;
+		int qps;
+		int maxResponseTime;
+		int avgResponseTime;
+    }
+}
