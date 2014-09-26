@@ -25,6 +25,9 @@ public abstract class Session
 	protected String msg = "";
 	protected int code = 0;
 
+	// 将所有参数转成实体相应的数据类型
+	protected Map<String, Object> entityVals;
+
 	protected Action action;
 
 	public Session(Action action)
@@ -414,29 +417,32 @@ public abstract class Session
 		}
 		String tmp = null;
 
-		Map<String, Object> map = new HashMap<>();
-
-		// fill must parameter
-		ParameterEntity[] mustParams = action.getActionEntity().getMustParams();
-		for (ParameterEntity it : mustParams)
+		if (entityVals == null)
 		{
-			tmp = this.getParameter(it.getName());
-			map.put(it.getName(), RequestChecker.checkers[it.getDataType().getValue()].getValue(tmp));
-		}
+			entityVals = new HashMap<>();
 
-		// fill optional parameter
-		ParameterEntity[] optionalParams = action.getActionEntity().getOptionalParams();
-		for (ParameterEntity it : optionalParams)
-		{
-			tmp = this.getParameter(it.getName());
-			if (tmp != null && tmp.length() > 0)
+			// fill must parameter
+			ParameterEntity[] mustParams = action.getActionEntity().getMustParams();
+			for (ParameterEntity it : mustParams)
 			{
-				map.put(it.getName(), RequestChecker.checkers[it.getDataType().getValue()].getValue(tmp));
+				tmp = this.getParameter(it.getName());
+				entityVals.put(it.getName(), RequestChecker.checkers[it.getDataType().getValue()].getValue(tmp));
+			}
+
+			// fill optional parameter
+			ParameterEntity[] optionalParams = action.getActionEntity().getOptionalParams();
+			for (ParameterEntity it : optionalParams)
+			{
+				tmp = this.getParameter(it.getName());
+				if (tmp != null && tmp.length() > 0)
+				{
+					entityVals.put(it.getName(), RequestChecker.checkers[it.getDataType().getValue()].getValue(tmp));
+				}
 			}
 		}
 
 		// fill into entity
-		entity.setValues(new EntityValue(map));
+		entity.setValues(new EntityValue(entityVals));
 	}
 
 	/**
