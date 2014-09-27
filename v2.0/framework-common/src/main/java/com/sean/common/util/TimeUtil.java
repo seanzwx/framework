@@ -41,9 +41,9 @@ public class TimeUtil
 	 * 获取yyyMMdd格式日期
 	 * @return
 	 */
-	public static long getYYYYMMDDLong()
+	public static int getYYYYMMDD()
 	{
-		return Long.parseLong(FORMAT_YYYYMMDDLong.format(new Date()));
+		return Integer.parseInt(FORMAT_YYYYMMDDLong.format(new Date()));
 	}
 
 	/**
