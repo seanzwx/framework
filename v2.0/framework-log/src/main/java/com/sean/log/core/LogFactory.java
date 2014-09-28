@@ -12,4 +12,9 @@ public class LogFactory
 	{
 		return Logger.getLogger(name);
 	}
+	
+	public static synchronized Logger getLogger(Class<?> clazz)
+	{
+		return Logger.getLogger(clazz.getName());
+	}
 }
