@@ -28,7 +28,7 @@ public class InterceptWorker implements Worker
 		}
 		else
 		{
-			session.denied();
+			session.denied("access denied for intercept");
 		}
 	}
 }

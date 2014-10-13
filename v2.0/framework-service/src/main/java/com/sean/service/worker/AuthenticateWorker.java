@@ -113,6 +113,6 @@ public class AuthenticateWorker implements Worker
 				}
 			}
 		}
-		session.denied();
+		session.denied("access denied for auth failed");
 	}
 }

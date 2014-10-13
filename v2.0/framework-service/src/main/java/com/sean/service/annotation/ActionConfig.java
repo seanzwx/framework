@@ -40,7 +40,7 @@ public @interface ActionConfig
 	 * 返回参数类型
 	 */
 	ReturnType returnType() default ReturnType.Json;
-	
+
 	/**
 	 * 模块
 	 */
@@ -50,4 +50,9 @@ public @interface ActionConfig
 	 * 版本
 	 */
 	Class<? extends Version> version() default V1.class;
+
+	/**
+	 * 接口密码, 访问该接口必须在请求参数加password参数验证, 当且仅当参数于该值一致才可通过验证, 否则返回Denied
+	 */
+	String password() default "";
 }

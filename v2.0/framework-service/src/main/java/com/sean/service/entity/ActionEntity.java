@@ -23,11 +23,12 @@ public class ActionEntity
 	private String description;
 	private Version version;
 	private Class<?> cls;
+	private String password;
 	private Worker worker;
 
 	public ActionEntity(boolean transation, Class<? extends Module> module, ReturnParameterEntity[] returnParams, ParameterEntity[] mustParams,
 			ParameterEntity[] optionalParams, int permission, boolean authenticate, ReturnType returnType, Class<?> cls, String description,
-			Version version, Worker worker)
+			Version version, String password, Worker worker)
 	{
 		this.transation = transation;
 		this.module = module;
@@ -41,6 +42,7 @@ public class ActionEntity
 		this.description = description;
 		this.version = version;
 		this.worker = worker;
+		this.password = password;
 	}
 
 	public boolean isTransation()
@@ -101,6 +103,11 @@ public class ActionEntity
 	public Class<? extends Module> getModule()
 	{
 		return module;
+	}
+
+	public String getPassword()
+	{
+		return password;
 	}
 
 }

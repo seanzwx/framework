@@ -182,7 +182,7 @@ public class ActionParser
 		}
 
 		ActionEntity ae = new ActionEntity(ac.transaction(), ac.module(), rpe, mustParams, optionalParams, ac.permission(), ac.authenticate(),
-				ac.returnType(), cls, dc.value(), version, chain);
+				ac.returnType(), cls, dc.value(), version, ac.password(), chain);
 
 		// 检查action
 		checkAction(ae);

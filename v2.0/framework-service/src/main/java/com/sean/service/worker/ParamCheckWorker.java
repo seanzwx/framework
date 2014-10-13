@@ -21,10 +21,23 @@ public class ParamCheckWorker implements Worker
 	
 	@Override
 	public void work(Session session, Action action) throws Exception
-	{		
+	{	
 		// 验证参数合法性
 		if (action.checkParams(session, checker))
 		{
+			// 验证接口密码
+			String actPwd = action.getActionEntity().getPassword();
+			String pwd = session.getParameter("password");
+			if (actPwd != null && !actPwd.isEmpty())
+			{
+				// 密码不正确
+				if (pwd == null || !pwd.equals(actPwd))
+				{
+					session.denied("access denied for password error");
+					return;
+				}
+			}
+			
 			this.nextWorker.work(session, action);
 		}
 	}

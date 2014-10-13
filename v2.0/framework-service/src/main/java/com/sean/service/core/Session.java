@@ -275,10 +275,10 @@ public abstract class Session
 	/**
 	 * access denied
 	 */
-	public void denied()
+	public void denied(String msg)
 	{
 		this.state = ResultState.Denied;
-		this.msg = "无权访问";
+		this.msg = msg;
 	}
 
 	/**

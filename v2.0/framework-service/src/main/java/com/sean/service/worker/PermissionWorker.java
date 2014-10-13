@@ -24,7 +24,7 @@ public class PermissionWorker implements Worker
 	{
 		if (!userInterface.checkPermission(session, action.getActionEntity().getPermission()))
 		{
-			session.denied();
+			session.denied("access denied for none permission");
 		}
 		else
 		{
