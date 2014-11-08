@@ -129,8 +129,18 @@ public class ReturnParameterParser
 				udes[i] = new UseDicEntity(it.field(), it.dic().getName());
 			}
 		}
+		// TODO Avro实体实现不完善, exclude 和实体校验未实现
 		else if (rpc.format() == Format.AvroEntity || rpc.format() == Format.AvroEntityList)
 		{
+			// 统计输出 fields
+			Set<String> set = new HashSet<>();
+			// 加入value
+			for (String it : fs.value())
+			{
+				set.add(it);
+			}
+			fields = set.toArray(new String[set.size()]);
+
 			udes = new UseDicEntity[udcs.length];
 			for (int i = 0; i < udcs.length; i++)
 			{
